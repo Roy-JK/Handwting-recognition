@@ -1,0 +1,1 @@
+./adb -s FA6C60300003  pull /sdcard/111.data .
