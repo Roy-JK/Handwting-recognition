@@ -245,7 +245,7 @@ if __name__ == "__main__":
     init = tf.global_variables_initializer()
     sess.run(init)
 
-    #--reload
+    #--reload model
     saver = tf.train.Saver()
     try:
         saver.restore(sess, './model')
@@ -279,6 +279,7 @@ if __name__ == "__main__":
         print("")
         saver.save(sess, './model')
 
+    #predict
     answer=''
     pre= sess.run([pred_Y],feed_dict={X: X_predict})
     length=len(pre[0])

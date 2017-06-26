@@ -2,15 +2,15 @@ clear;
 s = 'ST';
 D = readX(s);
 tt = 20;
-D = timeprocess(D);  
-D = interpolation(D,tt);
-[D,~]=move_mean(D);
-[V,X]=tran_X_2(D,tt);
-windowsize=60;
+D = timeprocess(D);  %处理时间
+D = interpolation(D,tt);  %插值
+[D,~]=move_mean(D); %减去平均值
+[V,X]=tran_X_2(D,tt); %求速度和位移
+windowsize=60; %序列长度
 %%
 [D, ~]=move_mean(D);
 [V, ~]=tran_X_2(D,tt);
-centerX = classifyV(sqrt(V(:, 2) .^ 2 +V(:, 3) .^ 2));
+centerX = classifyV(sqrt(V(:, 2) .^ 2 +V(:, 3) .^ 2));%聚类
 centerX=[1,centerX,size(D,1)];
 fprintf('共分为%d段\n',length(centerX)-1);
 
@@ -57,7 +57,7 @@ save([s,'X_dis_pre.txt'], 'X_pre_dis', '-ascii');
 save([s,'Y_dis_pre.txt'], 'Y_pre_dis', '-ascii');
 % quit;
 
-function [A,avg] = move_mean(D)
+function [A,avg] = move_mean(D) %去掉平均值
 c = 1;
 A = [D(:, 1), D(:, 2) - c * mean(D(:, 2)), D(:, 3) - c * mean(D(:, 3)), D(:, 4)- c * mean(D(:, 4))];
 avg = c*mean(D(:,2));
